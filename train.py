@@ -11,6 +11,7 @@ from util import data_generator
 import numpy as np
 import pandas as pd
 from tqdm import tqdm
+import pickle
 
 
 WIDTH = 299
@@ -106,7 +107,10 @@ for word, i in wordtoidx.items():
     if embedding_vector is not None:
         embedding_matrix[i] = embedding_vector
 
-
+with open('idxtoword.pickle', 'wb') as dfile:
+    pickle.dump(idxtoword, dfile)
+with open('wordtoidx.pickle', 'wb') as dfile:
+    pickle.dump(wordtoidx, dfile)
 
 caption_model = captionModel(max_length, vocab_size, embedding_dim)
 caption_model.layers[2].set_weights([embedding_matrix])

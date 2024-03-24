@@ -34,6 +34,7 @@ def generateCaption(img, model, START, STOP, max_length, wordtoidx, idxtoword):
         sequence = [wordtoidx[w] for w in in_text.split() if w in wordtoidx]
         sequence = pad_sequences([sequence], maxlen=max_length)
         yhat = model.predict([img,sequence], verbose=0)
+        
         yhat = np.argmax(yhat)
         word = idxtoword[yhat]
         in_text += ' ' + word
